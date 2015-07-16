@@ -1,5 +1,6 @@
 # cthulhu
-Automation system, which allows to run test app on multiple Android devices simultaneously. 
+A.C.T.H.U.L.H.U (Automation Controller. Tester's Hands Unloading Leads Human Unemployment)
+Automation system, which allows to run test app on multiple Android devices simultaneously.
 
 run the compiled project with the following command line: 
 
