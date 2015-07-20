@@ -23,6 +23,7 @@ public class Main {
     private static String apkPack = "";
     private static String apkActivity = "";
     private static String obbFile = "";
+    private static String additionalParameters = "";
     private static String apkDir = "C:\\projects\\";
     private static String apkExe = "adb";
     private static String logFilter = "unity";
@@ -30,6 +31,7 @@ public class Main {
 
     private enum EnumOptions {
         HELP(new CmdLnOption("help",'h')),
+        EXECUTE(new CmdLnOption("exec",'e').setOptionalArgument().setDescription("execute test set")),
         APKFILE(new CmdLnOption("apkfile",'a').setRequiredArgument().setDescription("apk file to use")),
         APKFILTER(new CmdLnOption("apkfilter",'f').setRequiredArgument().setDescription("log filter to use")),
         APKPACK(new CmdLnOption("apkPack",'p').setRequiredArgument().setDescription("apk packages to use")),
@@ -62,6 +64,10 @@ public class Main {
                 }
                 case APKFILE:{
                     apkFile = result.getArgument();
+                    break;
+                }
+                case EXECUTE:{
+                    additionalParameters = result.getArgument();
                     break;
                 }
                 case APKFILTER:{
@@ -193,7 +199,7 @@ public class Main {
                 testItem.logRunnable = task;
                 testItem.threadLog = worker;
 
-                TestRunnable taskTest = new TestRunnable(device, apkDir, apkFile, obbFile, apkPack, apkActivity, fileName);
+                TestRunnable taskTest = new TestRunnable(device, apkDir, apkFile, obbFile, apkPack, apkActivity, fileName, additionalParameters);
                 //executor.execute(task);
                 Thread workerTest = new Thread(taskTest);
                 // We can set the name of the thread

@@ -17,9 +17,10 @@ public class TestRunnable implements Runnable {
     private String obbFile;
     private int memoryUsage = 0;
     private String fileName;
+    private String addtionalParameters = "";
     public IShellOutputReceiver  iShellOutputReceiver;
 
-    public TestRunnable (IDevice device, String apkDir, String apkFile, String obbFile, String apkPack, String apkActivity, String fileName)
+    public TestRunnable (IDevice device, String apkDir, String apkFile, String obbFile, String apkPack, String apkActivity, String fileName, String addtionalParameters)
     {
         this.device = device;
         this.apkDir = apkDir;
@@ -28,6 +29,7 @@ public class TestRunnable implements Runnable {
         this.apkActivity = apkActivity;
         this.apkPack = apkPack;
         this.fileName = fileName;
+        this.addtionalParameters = addtionalParameters;
     }
     @Override
     public void run() {
@@ -60,7 +62,9 @@ public class TestRunnable implements Runnable {
 
 
                 iShellOutputReceiver= new ShellOutputReceiver();
-                String appStartString = "am start -n "+apkPack+"/"+apkActivity+" -e test all";
+                String appStartString = "am start -n "+apkPack+"/"+apkActivity;
+            if (!addtionalParameters.equals(""))
+                appStartString +=" -e test "+addtionalParameters;
                 device.executeShellCommand(appStartString, iShellOutputReceiver);
 
                 try {
